@@ -4,9 +4,9 @@ use std::marker::PhantomData;
 
 use config::{Options, OptionsExt};
 use de::read::BincodeRead;
-use {ErrorKind, Result};
-use std::convert::TryInto;
 use std::convert::TryFrom;
+use std::convert::TryInto;
+use {ErrorKind, Result};
 
 #[derive(Clone)]
 struct CountSize<L: SizeLimit> {

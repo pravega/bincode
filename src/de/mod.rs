@@ -8,8 +8,8 @@ use internal::SizeType;
 use serde;
 use serde::de::Error as DeError;
 use serde::de::IntoDeserializer;
-use {Error, ErrorKind, Result};
 use std::convert::TryInto;
+use {Error, ErrorKind, Result};
 
 pub mod read;
 
@@ -259,10 +259,8 @@ where
             {
                 if self.len > 0 {
                     self.len -= 1;
-                    let value = serde::de::DeserializeSeed::deserialize(
-                        seed,
-                        &mut *self.deserializer,
-                    )?;
+                    let value =
+                        serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer)?;
                     Ok(Some(value))
                 } else {
                     Ok(None)
@@ -321,10 +319,8 @@ where
             {
                 if self.len > 0 {
                     self.len -= 1;
-                    let key = serde::de::DeserializeSeed::deserialize(
-                        seed,
-                        &mut *self.deserializer,
-                    )?;
+                    let key =
+                        serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer)?;
                     Ok(Some(key))
                 } else {
                     Ok(None)
@@ -335,10 +331,7 @@ where
             where
                 V: serde::de::DeserializeSeed<'de>,
             {
-                let value = serde::de::DeserializeSeed::deserialize(
-                    seed,
-                    &mut *self.deserializer,
-                )?;
+                let value = serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer)?;
                 Ok(value)
             }
 
