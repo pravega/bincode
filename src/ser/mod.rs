@@ -89,31 +89,13 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
         self.writer.write_i64::<O::Endian>(v).map_err(Into::into)
     }
 
-    #[cfg(has_i128)]
-    fn serialize_u128(self, v: u128) -> Result<()> {
-        self.writer.write_u128::<O::Endian>(v).map_err(Into::into)
-    }
-
-    #[cfg(has_i128)]
-    fn serialize_i128(self, v: i128) -> Result<()> {
-        self.writer.write_i128::<O::Endian>(v).map_err(Into::into)
-    }
-
     serde_if_integer128! {
-        #[cfg(not(has_i128))]
         fn serialize_u128(self, v: u128) -> Result<()> {
-            use serde::ser::Error;
-
-            let _ = v;
-            Err(Error::custom("u128 is not supported. Use Rustc ≥ 1.26."))
+            self.writer.write_u128::<O::Endian>(v).map_err(Into::into)
         }
 
-        #[cfg(not(has_i128))]
         fn serialize_i128(self, v: i128) -> Result<()> {
-            use serde::ser::Error;
-
-            let _ = v;
-            Err(Error::custom("i128 is not supported. Use Rustc ≥ 1.26."))
+            self.writer.write_i128::<O::Endian>(v).map_err(Into::into)
         }
     }
 
@@ -149,7 +131,7 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
     where
         T: serde::Serialize,
     {
-        try!(self.writer.write_u8(1));
+        self.writer.write_u8(1)?;
         v.serialize(self)
     }
 
@@ -178,7 +160,7 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
         _variant: &'static str,
         _len: usize,
     ) -> Result<Self::SerializeTupleVariant> {
-        try!(self.serialize_u32(variant_index));
+        self.serialize_u32(variant_index)?;
         Ok(Compound { ser: self })
     }
 
@@ -199,7 +181,7 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
         _variant: &'static str,
         _len: usize,
     ) -> Result<Self::SerializeStructVariant> {
-        try!(self.serialize_u32(variant_index));
+        self.serialize_u32(variant_index)?;
         Ok(Compound { ser: self })
     }
 
@@ -220,7 +202,7 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
     where
         T: serde::ser::Serialize,
     {
-        try!(self.serialize_u32(variant_index));
+        self.serialize_u32(variant_index)?;
         value.serialize(self)
     }
 
@@ -349,7 +331,7 @@ impl<'a, O: Options> serde::Serializer for &'a mut SizeChecker<O> {
     where
         T: serde::Serialize,
     {
-        try!(self.add_value(1 as u8));
+        self.add_value(1 as u8)?;
         v.serialize(self)
     }
 
@@ -378,7 +360,7 @@ impl<'a, O: Options> serde::Serializer for &'a mut SizeChecker<O> {
         _variant: &'static str,
         _len: usize,
     ) -> Result<Self::SerializeTupleVariant> {
-        try!(self.add_value(variant_index));
+        self.add_value(variant_index)?;
         Ok(SizeCompound { ser: self })
     }
 
@@ -399,7 +381,7 @@ impl<'a, O: Options> serde::Serializer for &'a mut SizeChecker<O> {
         _variant: &'static str,
         _len: usize,
     ) -> Result<Self::SerializeStructVariant> {
-        try!(self.add_value(variant_index));
+        self.add_value(variant_index)?;
         Ok(SizeCompound { ser: self })
     }
 
@@ -427,7 +409,7 @@ impl<'a, O: Options> serde::Serializer for &'a mut SizeChecker<O> {
         _variant: &'static str,
         value: &V,
     ) -> Result<()> {
-        try!(self.add_value(variant_index));
+        self.add_value(variant_index)?;
         value.serialize(self)
     }
 
