@@ -34,10 +34,7 @@ pub(crate) struct Deserializer<R, O: Options> {
 impl<'de, R: BincodeRead<'de>, O: Options> Deserializer<R, O> {
     /// Creates a new Deserializer with a given `Read`er and a size_limit.
     pub(crate) fn new(r: R, options: O) -> Deserializer<R, O> {
-        Deserializer {
-            reader: r,
-            options: options,
-        }
+        Deserializer { reader: r, options }
     }
 
     fn read_bytes(&mut self, count: u64) -> Result<()> {
@@ -155,7 +152,7 @@ where
         let mut buf = [0u8; 4];
 
         // Look at the first byte to see how many bytes must be read
-        let _ = self.reader.read_exact(&mut buf[..1])?;
+        self.reader.read_exact(&mut buf[..1])?;
         let width = utf8_char_width(buf[0]);
         if width == 1 {
             return visitor.visit_char(buf[0] as char);
@@ -171,7 +168,7 @@ where
         let res = str::from_utf8(&buf[..width])
             .ok()
             .and_then(|s| s.chars().next())
-            .ok_or(error())?;
+            .ok_or_else(error)?;
         visitor.visit_char(res)
     }
 
@@ -274,7 +271,7 @@ where
 
         visitor.visit_seq(Access {
             deserializer: self,
-            len: len,
+            len,
         })
     }
 
@@ -344,7 +341,7 @@ where
         let len: usize = len.try_into().map_err(|_e| ErrorKind::SizeLimit)?;
         visitor.visit_map(Access {
             deserializer: self,
-            len: len,
+            len,
         })
     }
 

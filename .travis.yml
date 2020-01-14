@@ -6,8 +6,3 @@ rust:
     - nightly
 
 script: cargo test
-
-matrix:
-  include:
-    - rust: 1.18.0
-      script: cargo build

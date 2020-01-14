@@ -750,7 +750,7 @@ fn encode_utf8(c: char) -> EncodeUtf8 {
         buf[3] = (code & 0x3F) as u8 | TAG_CONT;
         0
     };
-    EncodeUtf8 { buf: buf, pos: pos }
+    EncodeUtf8 { buf, pos }
 }
 
 struct EncodeUtf8 {

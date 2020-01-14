@@ -1,6 +1,6 @@
 #![deny(missing_docs)]
 
-//! Bincode is a crate for encoding and decoding using a tiny binary
+//! Bincode2 is a crate for encoding and decoding using a tiny binary
 //! serialization strategy.  Using it, you can easily go from having
 //! an object in memory, quickly serialize it to bytes, and then
 //! deserialize it back just as fast!
@@ -12,19 +12,14 @@
 //!     // The object that we will serialize.
 //!     let target: Option<String>  = Some("hello world".to_string());
 //!
-//!     let encoded: Vec<u8> = bincode::serialize(&target).unwrap();
-//!     let decoded: Option<String> = bincode::deserialize(&encoded[..]).unwrap();
+//!     let encoded: Vec<u8> = bincode2::serialize(&target).unwrap();
+//!     let decoded: Option<String> = bincode2::deserialize(&encoded[..]).unwrap();
 //!     assert_eq!(target, decoded);
 //! }
 //! ```
-//!
-//! ### 128bit numbers
-//!
-//! Support for `i128` and `u128` is automatically enabled on Rust toolchains
-//! greater than or equal to `1.26.0` and disabled for targets which do not support it
 
-#![doc(html_root_url = "https://docs.rs/bincode/1.2.1")]
-#![crate_name = "bincode"]
+#![doc(html_root_url = "https://docs.rs/bincode2/")]
+#![crate_name = "bincode2"]
 #![crate_type = "rlib"]
 #![crate_type = "dylib"]
 
