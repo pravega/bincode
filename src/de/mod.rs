@@ -1,6 +1,5 @@
 use config::Options;
 use std::io::Read;
-use super::try_into::*;
 
 use self::read::BincodeRead;
 use byteorder::ReadBytesExt;
@@ -10,6 +9,7 @@ use serde;
 use serde::de::Error as DeError;
 use serde::de::IntoDeserializer;
 use {Error, ErrorKind, Result};
+use std::convert::TryInto;
 
 pub mod read;
 

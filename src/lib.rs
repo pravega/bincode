@@ -37,7 +37,6 @@ mod de;
 mod error;
 mod internal;
 mod ser;
-mod try_into;
 
 pub use config::{Config, LengthOption};
 pub use de::read::{BincodeRead, IoReader, SliceReader};
