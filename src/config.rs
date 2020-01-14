@@ -184,7 +184,7 @@ impl<O: Options, L: SizeType> WithOtherStringLength<O, L> {
     #[inline(always)]
     pub(crate) fn new(options: O) -> WithOtherStringLength<O, L> {
         WithOtherStringLength {
-            options: options,
+            options,
             _new_string_length: PhantomData,
         }
     }
@@ -194,7 +194,7 @@ impl<O: Options, L: SizeType> WithOtherArrayLength<O, L> {
     #[inline(always)]
     pub(crate) fn new(options: O) -> WithOtherArrayLength<O, L> {
         WithOtherArrayLength {
-            options: options,
+            options,
             _new_array_length: PhantomData,
         }
     }
