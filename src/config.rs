@@ -335,6 +335,7 @@ macro_rules! config_map {
     }}
 }
 
+#[allow(clippy::cognitive_complexity)] // https://github.com/rust-lang/rust-clippy/issues/3900
 impl Config {
     #[inline(always)]
     pub(crate) fn new() -> Config {
