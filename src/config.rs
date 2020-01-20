@@ -86,13 +86,13 @@ impl Options for DefaultOptions {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 enum LimitOption {
     Unlimited,
     Limited(u64),
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 enum EndianOption {
     Big,
     Little,
@@ -125,6 +125,7 @@ pub enum LengthOption {
 ///
 /// When a byte limit is set, bincode will return `Err` on any deserialization that goes over the limit, or any
 /// serialization that goes over the limit.
+///
 /// ### Array and String sizes
 /// When writing a string or an array is serialized the length is written at the beginning so that the data
 /// can be deserialized. The option is a way to configure how this length is encoded. The default for both
@@ -132,7 +133,7 @@ pub enum LengthOption {
 ///
 /// If a string or array is attempted to be serialized that is not fit within the type specified bincode will return `Err`
 /// on serialization.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Config {
     limit: LimitOption,
     endian: EndianOption,
