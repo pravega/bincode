@@ -5,3 +5,5 @@
 .cargo
 .vscode
 rls*.log
+.idea/
+
