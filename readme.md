@@ -1,6 +1,6 @@
 # Bincode 2
 
-A maintained fork of the now-defunct [Bincode](https://github.com/servo/bincode).
+A maintained fork of [Bincode](https://github.com/servo/bincode).
 <img align="right" src="./logo.png" />
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
