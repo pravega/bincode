@@ -9,7 +9,7 @@ repository = "https://github.com/pravega/bincode2"
 documentation = "https://docs.rs/bincode2"
 readme = "./readme.md"
 categories = ["encoding", "network-programming"]
-keywords = ["binary", "encode", "decode", "serialize", "deserialize"]
+keywords = ["bincode", "binary", "encode", "decode", "serialize", "deserialize"]
 
 license = "MIT"
 description = "A binary serialization / deserialization strategy that uses Serde for transforming structs into bytes and vice versa!"
